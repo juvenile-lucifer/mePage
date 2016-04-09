@@ -283,7 +283,16 @@
 			cells.init();
 			cells.updateView();
 			var ctr = window.document.getElementById('ctr');
-			ctr.addEventListener('click',(function(cells){return signal;})(cells) );
+			$("body").on("swipeleft" ,function(){
+				cells.left();
+				cells.updateView(choseBox);
+			});
+			$("body").on("swiperight" ,function(){
+				cells.left();
+				cells.updateView(choseBox);
+			});
+		
+			// ctr.addEventListener('click',(function(cells){return signal;})(cells) );
 			function choseBox(){
 					var emptyCell = [];
 					for(var i = 0 , j = cells.length ; i < j ;i++){
@@ -294,19 +303,19 @@
 					var chosedNum = Math.floor(Math.random()*emptyCell.length);
 					emptyCell[chosedNum].newValue = 2;
 				}
-			function signal(event){
-				var tarId = event.target.id;
-				if(tarId ==='top'){
-					cells.up();
-				}else if(tarId === 'left'){
-					cells.left();
-				}else if(tarId === 'right'){
-					cells.right();
-				}else if(tarId === 'bottom'){
-					cells.down();
-				}
-				cells.updateView(choseBox);
-			}
+			// function signal(event){
+			// 	var tarId = event.target.id;
+			// 	if(tarId ==='top'){
+			// 		cells.up();
+			// 	}else if(tarId === 'left'){
+			// 		cells.left();
+			// 	}else if(tarId === 'right'){
+			// 		cells.right();
+			// 	}else if(tarId === 'bottom'){
+			// 		cells.down();
+			// 	}
+			// 	cells.updateView(choseBox);
+			// }
 		})(window , undefined , cells)
 	</script>
 	<script>
