@@ -315,8 +315,9 @@
 	<script>
 		(function(window,undefined,cells){
 			if(window.document.getElementById("cont").touchstart){
+				window.getElementsByClassName("box")[0].innerHTML = 000;
 				console.log('touchstart success');
-				var body = window.document.getElementsByTarget("body")[0];
+				var body = window.document.getElementsByTagName("body")[0];
 				body.addEventListener("touchstart", function(event){
 					window.getElementsByClassName("box")[0].innerHTML = 001;
 					var touch = event.targetTouches[0];
@@ -337,7 +338,7 @@
 					});
 				});
 			}
-		})(window,undefined);
+		})(window,undefined,cells);
 	</script>
 
 </body>
