@@ -8,16 +8,21 @@
 		})(data));
 
 		function start(event){
-			var touch  = event.targetTouches[0];
+			var touch = event.targetTouches[0];
 			data.x = touch.pageX;
 			data.y = touch.pageY;
 			data.id = touch.identifier;
 		}
 		function end(event){
 			var touch = event.targetTouches[0];
-			alert('success');
-			alert(touch.pageX , touch.pageY , touch.identifier);
-			alert(data.x , data.y , data.id);
+			alert('sususu');
+			alert(touch);
+			window.document.getElementsByClassName('testTa')[0].innerHTML = 'test';
+			window.document.getElementsByClassName('testTa')[1].innerHTML = touch;
+			window.document.getElementsByClassName('testTa')[2].innerHTML = touch.pageX;
+			window.document.getElementsByClassName('testTa')[3].innerHTML = data.x;
+			// alert(touch.pageX , touch.pageY , touch.identifier);
+			// alert(data.x , data.y , data.id);
 			// window.document.getElementsByClassName('testTa')[0].innerHTML = touch.pageX + 'TX';
 			// window.document.getElementsByClassName('testTa')[1].innerHTML = touch.pageY + 'TY';
 			// window.document.getElementsByClassName('testTa')[2].innerHTML = data.x + 'DX';
