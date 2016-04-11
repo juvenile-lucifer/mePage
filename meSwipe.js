@@ -10,7 +10,10 @@
 		function start(event){
 			// window.document.getElementsByClassName('box')[0].innerHTML = 'ss';
 			var touch  = event.targetTouches[0];
-			window.document.getElementsByClassName('box')[0].innerHTML = touch.pageX;
+			window.document.getElementsByClassName('testDiv')[0].innerHTML = touch.pageX;
+			window.document.getElementsByClassName('testDiv')[1].innerHTML = touch.pageX +'';
+			window.document.getElementsByClassName('testDiv')[2].innerHTML = touch.pageY;
+			window.document.getElementsByClassName('testDiv')[3].innerHTML = touch.pageY + '';
 			data.x = touch.pageX;
 			data.y = touch.pageY;
 			data.id = touch.identifier;
