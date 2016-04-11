@@ -317,29 +317,49 @@
 			var boxs = window.document.getElementsByClassName("box");
 			var body = window.document.getElementsByTagName("body")[0];
 			boxs[0].innerHTML = 'test';
-			if(body.click){
-				boxs[1].innerHTML = '000';
-				console.log('touchstart success');
-				body.addEventListener("touchmove", function(event){
-					boxs[2].innerHTML = '001';
-					var touch = event.targetTouches[0];
-					var x = touch.pageX;
-					var y = touch.pageY;
-					body.addEventListener("touchend" , function(event){
-						boxs[3].innerHTML = 002;
-						var touchEnd = event.targetTouches[0];
-						var endX = touchEnd.pageX;
-						var endy = touch.pageY;
-						var sub = endX - endY;
-						boxs[4].innerHTML = sub+'';
-						if(sub > 30){
-							boxs[5].innerHTML = 003;
-							cells.left();
-							cells.updateView();
-						}
-					});
-				});
+			if(body.touchstart){
+				boxs[1].innerHTML = 'bt';
+			}else{
+				boxs[1].innerHTML = 'add';
+				body.addEventListener('touchstart' , function(){boxs[1].innerHTML = 'addsu'});
 			}
+
+			if(body.touchmove){
+				boxs[2].innerHTML = 'bt';
+			}else{
+				boxs[2].innerHTML = 'add';
+				body.addEventListener('touchmove' , function(){boxs[1].innerHTML = 'addsu'});
+			}
+
+			if(body.touchend){
+				boxs[3].innerHTML = 'bt';
+			}else{
+				boxs[3].innerHTML = 'add';
+				body.addEventListener('touchend' , function(){boxs[1].innerHTML = 'addsu'});
+			}
+			// if(body.click){
+			// 	boxs[1].innerHTML = '000';
+			// 	console.log('touchstart success');
+			// 	body.addEventListener("touchmove", function(event){
+			// 		boxs[2].innerHTML = '001';
+			// 		var touch = event.targetTouches[0];
+			// 		var x = touch.pageX;
+			// 		var y = touch.pageY;
+			// 		body.addEventListener("touchend" , function(event){
+			// 			boxs[3].innerHTML = 002;
+			// 			var touchEnd = event.targetTouches[0];
+			// 			var endX = touchEnd.pageX;
+			// 			var endy = touch.pageY;
+			// 			var sub = endX - endY;
+			// 			boxs[4].innerHTML = sub+'';
+			// 			if(sub > 30){
+			// 				boxs[5].innerHTML = 003;
+			// 				cells.left();
+			// 				cells.updateView();
+			// 			}
+			// 		});
+			// 	});
+			// }
 		})(window,undefined,cells);
 	</script>
 
