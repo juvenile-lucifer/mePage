@@ -16,8 +16,8 @@
 		function end(event){
 			var touch = event.targetTouches[0];
 			alert('sususu');
-			alert(event.targetTouches);
-			window.document.getElementsByClassName('testTa')[0].innerHTML = 'test';
+			alert(event.targetTouches.length);
+			window.document.getElementsByClassName('testTa')[0].innerHTML = event.targetTouches[0];
 			window.document.getElementsByClassName('testTa')[1].innerHTML = touch;
 			window.document.getElementsByClassName('testTa')[2].innerHTML = touch.pageX;
 			window.document.getElementsByClassName('testTa')[3].innerHTML = data.x;
