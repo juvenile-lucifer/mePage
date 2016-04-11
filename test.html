@@ -317,10 +317,10 @@
 			var boxs = window.document.getElementsByClassName("box");
 			var body = window.document.getElementsByTagName("body")[0];
 			boxs[0].innerHTML = 'test';
-			if(window.document.getElementById("cont").touchstart){
+			if(body.click){
 				boxs[1].innerHTML = '000';
 				console.log('touchstart success');
-				body.addEventListener("touchstart", function(event){
+				body.addEventListener("click", function(event){
 					boxs[2].innerHTML = '001';
 					var touch = event.targetTouches[0];
 					var x = touch.pageX;
