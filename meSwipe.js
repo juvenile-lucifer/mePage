@@ -2,7 +2,7 @@
 	window.swipe =
 	function (elm , dre  ){
 		var data = {};
-		window.document.getElementsByClassName('box')[4].innerHTML = '000';
+		window.document.getElementsByClassName('box')[9].innerHTML = '000';
 		elm.addEventListener('touchstart' ,(function(data){
 			return start;
 		})(data));
@@ -18,7 +18,12 @@
 		function end(event){
 			window.document.getElementsByClassName('box')[2].innerHTML = 'ses';
 			var touch = event.targetTouches[0];
+			window.document.getElementsByClassName('box')[4].innerHTML = touch.pageX + '';
+			window.document.getElementsByClassName('box')[5].innerHTML = touch.pageY + '';
+			window.document.getElementsByClassName('box')[6].innerHTML = data.x + '';
+			window.document.getElementsByClassName('box')[7].innerHTML = data.y + '';
 			if(touch.identifier === data.id){
+				window.document.getElementsByClassName('box')[8].innerHTML = touch.identifier + '';
 				if( (touch.pageX - data.x) >30){
 					// cells.right();
 					// cells.update
