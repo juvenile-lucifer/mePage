@@ -16,10 +16,12 @@
 		function end(event){
 			var touch = event.targetTouches[0];
 			alert('success');
-			window.document.getElementsByClassName('testTa')[0].innerHTML = touch.pageX + 'TX';
-			window.document.getElementsByClassName('testTa')[1].innerHTML = touch.pageY + 'TY';
-			window.document.getElementsByClassName('testTa')[2].innerHTML = data.x + 'DX';
-			window.document.getElementsByClassName('testTa')[3].innerHTML = data.y + 'DY';
+			alert(touch.pageX , touch.pageY , touch.identifier);
+			alert(data.x , data.y , data.id);
+			// window.document.getElementsByClassName('testTa')[0].innerHTML = touch.pageX + 'TX';
+			// window.document.getElementsByClassName('testTa')[1].innerHTML = touch.pageY + 'TY';
+			// window.document.getElementsByClassName('testTa')[2].innerHTML = data.x + 'DX';
+			// window.document.getElementsByClassName('testTa')[3].innerHTML = data.y + 'DY';
 			if(touch.identifier === data.id){
 				alert(touch.identifier);
 				if( (touch.pageX - data.x) >30){
