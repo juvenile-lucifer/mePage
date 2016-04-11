@@ -316,7 +316,13 @@
 		(function(window,undefined,cells){
 			var boxs = window.document.getElementsByClassName("box");
 			var body = window.document.getElementsByTagName("body")[0];
-			boxs[0].innerHTML = 'test';
+			if(body.click){
+				boxs[0].innerHTML = 'bt';
+			}else{
+				boxs[0].innerHTML = 'add';
+				body.addEventListener('click' , function(){boxs[0].innerHTML = 'click'});
+			}
+
 			if(body.touchstart){
 				boxs[1].innerHTML = 'bt';
 			}else{
@@ -328,14 +334,14 @@
 				boxs[2].innerHTML = 'bt';
 			}else{
 				boxs[2].innerHTML = 'add';
-				body.addEventListener('touchmove' , function(){boxs[1].innerHTML = 'addsu'});
+				body.addEventListener('touchmove' , function(){boxs[2].innerHTML = 'addsu'});
 			}
 
 			if(body.touchend){
 				boxs[3].innerHTML = 'bt';
 			}else{
 				boxs[3].innerHTML = 'add';
-				body.addEventListener('touchend' , function(){boxs[1].innerHTML = 'addsu'});
+				body.addEventListener('touchend' , function(){boxs[3].innerHTML = 'addsu'});
 			}
 			// if(body.click){
 			// 	boxs[1].innerHTML = '000';
