@@ -320,7 +320,7 @@
 			if(body.click){
 				boxs[1].innerHTML = '000';
 				console.log('touchstart success');
-				body.addEventListener("click", function(event){
+				body.addEventListener("touchmove", function(event){
 					boxs[2].innerHTML = '001';
 					var touch = event.targetTouches[0];
 					var x = touch.pageX;
