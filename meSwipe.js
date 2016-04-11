@@ -10,7 +10,7 @@
 		function start(event){
 			// window.document.getElementsByClassName('box')[0].innerHTML = 'ss';
 			var touch  = event.targetTouches[0];
-			window.document.getElementsByClassName('box')[0].innerHTML = touch;
+			window.document.getElementsByClassName('box')[0].innerHTML = touch.pageX;
 			data.x = touch.pageX;
 			data.y = touch.pageY;
 			data.id = touch.identifier;
