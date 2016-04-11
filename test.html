@@ -314,24 +314,26 @@
 	</script>
 	<script>
 		(function(window,undefined,cells){
+			var boxs = window.document.getElementsByClassName("box");
+			var body = window.document.getElementsByTagName("body")[0];
+			boxs[0].innerHTML = 'test';
 			if(window.document.getElementById("cont").touchstart){
-				window.getElementsByClassName("box")[0].innerHTML = 000;
+				boxs[1].innerHTML = '000';
 				console.log('touchstart success');
-				var body = window.document.getElementsByTagName("body")[0];
 				body.addEventListener("touchstart", function(event){
-					window.getElementsByClassName("box")[0].innerHTML = 001;
+					boxs[2].innerHTML = '001';
 					var touch = event.targetTouches[0];
 					var x = touch.pageX;
 					var y = touch.pageY;
 					body.addEventListener("touchend" , function(event){
-						window.getElementsByClassName("box")[1].innerHTML = 002;
+						boxs[3].innerHTML = 002;
 						var touchEnd = event.targetTouches[0];
 						var endX = touchEnd.pageX;
 						var endy = touch.pageY;
 						var sub = endX - endY;
-						window.getElementsByClassName("box")[2].innerHTML = sub+'';
+						boxs[4].innerHTML = sub+'';
 						if(sub > 30){
-							window.getElementsByClassName("box")[3].innerHTML = 003;
+							boxs[5].innerHTML = 003;
 							cells.left();
 							cells.updateView();
 						}
