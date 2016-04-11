@@ -16,7 +16,7 @@
 		function end(event){
 			var touch = event.targetTouches[0];
 			alert('sususu');
-			alert(touch);
+			alert(event.targetTouches);
 			window.document.getElementsByClassName('testTa')[0].innerHTML = 'test';
 			window.document.getElementsByClassName('testTa')[1].innerHTML = touch;
 			window.document.getElementsByClassName('testTa')[2].innerHTML = touch.pageX;
