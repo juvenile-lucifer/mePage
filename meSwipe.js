@@ -1,45 +1,61 @@
 (function(window,undefined){
 	window.swipe =
-	function (elm , dre  ){
-		var data = {};
-		window.document.getElementsByClassName('box')[9].innerHTML = '000';
+	function (elm , dre ,f ){
+		var data = {
+			left : function(){
+				cells.left();
+				cells.quicklyUpdate();
+			} ,
+			right :function(){
+				cells.right();
+				cells.quicklyUpdate();
+			},
+			up : function(){
+				cells.up();
+				cells.quicklyUpdate();
+			},
+			down : function(){
+				cells.down();
+				cells.quicklyUpdate();
+			},
+			handle : function(){
+				var _x = this.x1 - this.x0;
+				var _y = this.y1 - this.y0;
+				var _k = _y / _x;
+				if(_x > 30 && -1 < _k < 1 ){
+					return 'right';
+				}else if( _x < -30 && -1 < _k < 1){
+					return 'left';
+				}else if( _y > 30 && (_k > 1 || _k < -1) ){
+					return 'down';
+				}else if( _y < -30 && (_k > 1 || _k < -1) ){
+					return 'up';
+				}
+			}
+
+		};
 		elm.addEventListener('touchstart' ,(function(data){
 			return start;
+		})(data));
+		elm.addEventListener('touchend' , (function(data){
+			return end;
 		})(data));
 
 		function start(event){
 			var touch = event.targetTouches[0];
-			data.x = touch.pageX;
-			data.y = touch.pageY;
-			data.id = touch.identifier;
+			data.x0 = touch.pageX;
+			data.y0 = touch.pageY;
+			data.id0 = touch.identifier;
 		}
 		function end(event){
 			var touch = event.changedTouches[0];
-			alert('sususu');
-			alert(event.changedTouches.length);
-			window.document.getElementsByClassName('testTa')[0].innerHTML = event.changedTouches[0];
-			window.document.getElementsByClassName('testTa')[1].innerHTML = touch;
-			window.document.getElementsByClassName('testTa')[2].innerHTML = touch.pageX;
-			window.document.getElementsByClassName('testTa')[3].innerHTML = data.x;
-			// alert(touch.pageX , touch.pageY , touch.identifier);
-			// alert(data.x , data.y , data.id);
-			// window.document.getElementsByClassName('testTa')[0].innerHTML = touch.pageX + 'TX';
-			// window.document.getElementsByClassName('testTa')[1].innerHTML = touch.pageY + 'TY';
-			// window.document.getElementsByClassName('testTa')[2].innerHTML = data.x + 'DX';
-			// window.document.getElementsByClassName('testTa')[3].innerHTML = data.y + 'DY';
-			if(touch.identifier === data.id){
-				alert(touch.identifier);
-				if( (touch.pageX - data.x) >30){
-					// cells.right();
-					// cells.update
-					var boxs = window.document.getElementsByClassName('box');
-					boxs[3].innerHTML = 'rs';
-				}
+			if(touch.identifier === data.id0){
+				data.x1 =touch.pageX;
+				data.y1 = touch.pageY;
+				data[handle()]();
 			}
 		}
-		elm.addEventListener('touchend' , (function(data){
-			return end;
-		})(data));
+		
 	}
 
 })(window,undefined);
