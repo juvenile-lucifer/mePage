@@ -22,9 +22,9 @@
 				var _x = this.x1 - this.x0;
 				var _y = this.y1 - this.y0;
 				var _k = _y / _x;
-				if(_x > 30 && -1 < _k < 1 ){
+				if(_x > 30 && (-1 < _k || _k < 1) ){
 					return 'right';
-				}else if( _x < -30 && -1 < _k < 1){
+				}else if( _x < -30 && (-1 < _k || _k < 1) ){
 					return 'left';
 				}else if( _y > 30 && (_k > 1 || _k < -1) ){
 					return 'down';
@@ -47,6 +47,7 @@
 			data.x0 = touch.pageX;
 			data.y0 = touch.pageY;
 			data.id0 = touch.identifier;
+			event.preventDefault();
 			window.document.getElementsByClassName('testTa')[0].innerHTML = data.x0 +'X  '+data.y0 + 'y   ';
 		}
 		function end(event){
