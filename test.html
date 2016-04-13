@@ -7,7 +7,8 @@
 	<style>
 		html{font-size: 100%;}
 		body{margin:0;padding:0;}
-		.container{background:#bbada0;padding:5px;border-radius: 10px;width:60%;margin:auto;}
+		/*.container{background:#bbada0;padding:5px;border-radius: 10px;width:60%;margin:auto;}*/
+		.container{background:#bbada0;padding:5px;border-radius: 10px;width:60%;margin-left:10%;}
 		.row{display:flex;flex-direction:row;}
 		.col{display:flex;flex-direction:column;}
 		.bigBox{flex:1;width:100px;flex-shrink:1;}
@@ -31,7 +32,7 @@
 		.testDiv{width:100%;}
 		.testTa{height:4rem;}
 
-		.deskCtrl{position:absolute;top:100px;right:200px;width:300px;height:300px;}
+		.deskCtrl{position:absolute;top:100px;right:100px;width:300px;height:300px;}
 		.top{width:100px;height:100px;margin-left:100px;background:#edc53f }
 		.left{width:100px;height:100px;background:#edc22e;float:left; }
 		.right{width:100px;height:100px;float:right;background:#edc888; }
@@ -182,29 +183,53 @@
 					}
 				}
 				cells.quicklyUpdate = function(){
+					var isChanged = this.isValueChanged();
+					if(isChanged){
+						var emptyCells = this.findEmptyCell();
+						emptyCells[Math.floor(Math.random()*emptyCells.length)].newValue = 2;
+						this.updateView();
+						this.renewValue();
+					}
+				}
+				cells.isValueChanged = function(){
+					var isChanged = false;
+					for(var i = 0 , j = this.length ; i < j ;i++){
+						if(this[i].newValue !== this[i].oldValue){
+							isChanged =true;
+							break;
+						}
+					}
+					return isChanged;
+				}
+				cells.findEmptyCell = function(){
 					var emptyCell = [];
 					for(var i = 0 , j = this.length ; i < j ;i++){
 						if(!this[i].newValue){
 							emptyCell.push(this[i]);
 						}
 					}
-					var chosedNum = Math.floor(Math.random()*emptyCell.length);
-					emptyCell[chosedNum].newValue = 2;
-					this.updateView();
+					return emptyCell;
+				}
+				cells.renewValue = function(){
+					for(var i = 0 , j = this.length ; i < j ;i++){
+							this[i].oldValue = this[i].newValue;
+					}
 				}
 				function Cell(a,b){
 					this.box = a;
 					this.index = b;
-					this.oldValue = arguments[2] ? arguments[2] : 0;
+					this.oldValue = arguments[2] ? arguments[2] : undefined;
 					this.newValue = arguments[3] ? arguments[3] : 0;
 					this.posX = Math.floor(this.index / config.line) + 1;
 					this.posY = this.index % config.line + 1;
 				}
 
 				Cell.prototype.update = function(){
-					var value = this.newValue === 0 ? '' : this.newValue;
-					this.box.innerHTML = value + '';
-					this.box.className = this.box.className.split(' ')[0] + ' _'+ this.newValue;
+					// if(!this.newValue || this.newValue !== this.oldValue){
+						var value = this.newValue === 0 ? '' : this.newValue;
+						this.box.innerHTML = value + '';
+						this.box.className = this.box.className.split(' ')[0] + ' _'+ this.newValue;
+					// }
 				}
 
 				function Row(cells , a){
@@ -305,7 +330,7 @@
 		})(window,undefined);
 		(function(window,undefined,cells){
 			cells.init();
-			cells.updateView();
+			cells.quicklyUpdate();
 			var ctr = window.document.getElementById('ctr');
 			ctr.addEventListener('click',(function(cells){return signal;})(cells) );
 			function signal(event){
