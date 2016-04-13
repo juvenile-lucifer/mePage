@@ -2,19 +2,19 @@
 	window.swipe =
 	function (elm , dre ,f ){
 		var data = {
-			left : function(){
+			'left' : function(){
 				cells.left();
 				cells.quicklyUpdate();
 			} ,
-			right :function(){
+			'right' :function(){
 				cells.right();
 				cells.quicklyUpdate();
 			},
-			up : function(){
+			'up' : function(){
 				cells.up();
 				cells.quicklyUpdate();
 			},
-			down : function(){
+			'down' : function(){
 				cells.down();
 				cells.quicklyUpdate();
 			},
@@ -43,16 +43,20 @@
 
 		function start(event){
 			var touch = event.targetTouches[0];
+			window.document.getElementsByClassName('testTa')[0].innerHTML = 'success';
 			data.x0 = touch.pageX;
 			data.y0 = touch.pageY;
 			data.id0 = touch.identifier;
+			window.document.getElementsByClassName('testTa')[0].innerHTML = data.x0 +'X  '+data.y0 + 'y   ';
 		}
 		function end(event){
 			var touch = event.changedTouches[0];
 			if(touch.identifier === data.id0){
 				data.x1 =touch.pageX;
 				data.y1 = touch.pageY;
-				data[handle()]();
+				window.document.getElementsByClassName('testTa')[1].innerHTML = data.x1 +'X  '+data.y1 + 'y   ';
+				window.document.getElementsByClassName('testTa')[2].innerHTML = data.handle();
+				data[data.handle()]();
 			}
 		}
 		
