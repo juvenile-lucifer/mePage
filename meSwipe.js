@@ -21,18 +21,23 @@
 			handle : function(){
 				var _x = this.x1 - this.x0;
 				var _y = this.y1 - this.y0;
-				var _k = _y / _x;
-				if(_x > 30 && (-1 < _k || _k < 1) ){
-					return 'right';
-				}else if( _x < -30 && (-1 < _k || _k < 1) ){
-					return 'left';
-				}else if( _y > 30 && (_k > 1 || _k < -1) ){
-					return 'down';
-				}else if( _y < -30 && (_k > 1 || _k < -1) ){
-					return 'up';
+				var absX = Math.abs(_x);
+				var absY = Math.abs(_y);
+				var direction;
+				if(absX > 30 && absX > absY){
+					if(_x >0 ){
+						direction = 'right';
+					}else {
+						direction = 'left';
+					}
+				}else if(absY >30 && absY > absX){
+					if(_y > 0){
+						direction = 'down';
+					}else{
+						direction = 'up';
+					}
 				}
 			}
-
 		};
 		elm.addEventListener('touchstart' ,(function(data){
 			return start;
