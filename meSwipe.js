@@ -37,6 +37,7 @@
 						direction = 'up';
 					}
 				}
+				return direction;
 			}
 		};
 		elm.addEventListener('touchstart' ,(function(data){
