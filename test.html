@@ -12,7 +12,7 @@
 		.row{display:flex;flex-direction:row;-webkit-flex-direction:row;}
 		.col{display:flex;flex-direction:column;-webkit-flex-direction:column;}
 		.bigBox{flex:1;width:100px;flex-shrink:1;-webkit-flex:1;}
-		.box{flex:1;-webkit-flex:1;margin:5px;height:100px;flex-shrink:1;line-height: 2rem;text-align: center;border-radius: 1rem;}
+		.box{flex:1;-webkit-flex:1;margin:5px;height:100px;flex-shrink:1;line-height: 110px;text-align: center;border-radius: 1rem;}
 		._0{background: #ccc0b3;font-size: 1rem;}
 		._2{background: #eee4da;font-size: 2rem;}
 		._4{background: #ede048;font-size: 2rem;}
@@ -26,9 +26,10 @@
 		._1024{background: #edc53f;font-size: .5rem;}
 		._2048{background: #edc22e;font-size: .5rem;}
 
-		@media all and (max-width:1024px){
+		@media all and (max-width:900px){
 			.deskCtrl{display:none;}
 			.container{background:#bbada0;padding:5px;border-radius: 10px;width:60%;margin:auto;}
+			.box{line-height: 2rem;}
 		}
 		.testDiv{width:100%;}
 		.testTa{height:4rem;}
@@ -86,10 +87,14 @@
 	<script>
 		var con = document.getElementsByClassName('container')[0];
 		var wid = con.offsetWidth;
+		var box = document.getElementsByClassName("box");
 		con.style="height :" + wid + "px";
+		// console.log(boxW.offsetHeight);
+		var boxH = box[0].offsetHeight;
 		
 	</script>
 	<script>
+	/*pc*/ 
 		(function(window,undefined,cells){
 			cells.init();
 			cells.quicklyUpdate();
@@ -111,6 +116,7 @@
 		})(window , undefined , cells)
 	</script>
 	<script>
+	/*phone*/
 		(function(window,undefined,cells){
 			var boxs = window.document.getElementsByClassName("box");
 			var body = window.document.getElementsByTagName("body")[0];
