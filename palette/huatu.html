@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{margin:0;padding:0;}
+		#myCanvas{background: #ccc;}
+		.test{width:300px;height:736px;background: yellow}
+	</style>
+</head>
+<body>
+	<div class="con">
+		<canvas id="myCanvas" width="800" height="800">
+			
+		</canvas>
+	</div>
+	<div class="test"></div>
+	<script>
+		var deviceWidth = window.innerWidth;
+		var deviceHeight = window.innerHeight;
+		var can = document.getElementById("myCanvas");
+		can.width =deviceWidth + '';
+		can.height = deviceHeight + '';
+		alert(deviceWidth);
+		alert(deviceHeight);
+	</script>
+	<script>
+		var can = document.getElementById("myCanvas");
+		var plate = can.getContext("2d");
+		console.log(plate);
+
+		function nbStrokeRect(data){
+			if(data && data.x &&data.y && data.w && data.h){
+				plate.beginPath();
+				plate.lineWidth = data.lineW ? data.lineW :3;
+				plate.strokeStyle = data.color ? data.color :'red';
+				plate.strokeRect(data.x ,data.y ,data.w ,data.h);
+			}
+		}
+
+		function nbFillRect(data){
+			if(data && data.x &&data.y && data.w && data.h){
+				plate.beginPath();
+				plate.fillStyle = data.color ? data.color :'red';
+				plate.fillRect(data.x ,data.y ,data.w ,data.h);
+			}
+		}
+
+		function nbFillTriangle(data){
+			if(data && data.x0 && data.y0 && data.x0 && data.y0 && data.x0 && data.y0 ){
+				plate.beginPath();
+				plate.moveTo(data.x0 , data.y0);
+				plate.lineTo(data.x1 , data.y1);
+				plate.lineTo(data.x2 , data.y2);
+				plate.fillStyle = data.color ? data.color : "#666";
+				plate.fill();
+			}
+		}
+
+		nbFillTriangle({x0:200,y0:100,x1:300,y1:200,x2:100,y2:200});
+	</script>
+</body>
+</html>
