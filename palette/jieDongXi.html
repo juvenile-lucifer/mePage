@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{margin:0;padding:0;}
+		#myCanvas{background: #ccc;}
+	</style>
+</head>
+<body>
+	<div class="con">
+		<canvas id="myCanvas" width="800" height="800">
+			
+		</canvas>
+	</div>
+	<!-- <div style="width:100px;height:1200px;background:red" id="tt"></div> -->
+	<script>
+		'use strict'
+
+		var config = (function(window,undefined){
+			var deviceWidth = window.innerWidth;
+			var deviceHeight = window.innerHeight;
+			var can = document.getElementById("myCanvas");
+			var plate = can.getContext("2d");
+			can.width =deviceWidth + '';
+			can.height = deviceHeight + '';
+			var config = {
+				'can' : can ,
+				'plate' : plate ,
+				'skep' : {'top' : 1200},
+			};
+			return config;
+		})(window,undefined)
+
+		var nbPic = (function(window,undefined,config){
+			var plate = config.plate;
+			var nbStrokeRect = function (data){
+				if(data && data.x &&data.y && data.w && data.h){
+					plate.beginPath();
+					plate.lineWidth = data.lineW || 3;
+					plate.strokeStyle = data.color || '#666';
+					plate.strokeRect(data.x ,data.y ,data.w ,data.h);
+				}
+			}
+
+			var nbFillRect = function (data){
+				if(data && data.x &&data.y && data.w && data.h){
+					plate.beginPath();
+					plate.fillStyle = data.color || '#666';
+					plate.fillRect(data.x ,data.y ,data.w ,data.h);
+				}
+			}
+
+			var nbFillTriangle = function (data){
+				if(data && data.x0 && data.y0 && data.x0 && data.y0 && data.x0 && data.y0 ){
+					plate.beginPath();
+					plate.moveTo(data.x0 , data.y0);
+					plate.lineTo(data.x1 , data.y1);
+					plate.lineTo(data.x2 , data.y2);
+					plate.fillStyle = data.color || '#666';
+					plate.fill();
+				}
+			}
+
+			var nbClearCanvas = function(){
+				plate.clearRect(0,0,config.can.width,config.can.height);
+			}
+	
+			return {
+				'nbStrokeRect' : nbStrokeRect ,
+	  		'nbFillRect' : nbFillRect ,
+	  		'nbFillTriangle' : nbFillTriangle ,
+	  		'nbClearCanvas' : nbClearCanvas ,
+			};
+		})(window,undefined,config)
+
+	</script>
+	<script>
+		var CreatePic = function(x,speed,shape){
+			this.speed = speed;
+			this.pointX = x;
+			this.pointY = 100;
+			this.len = 60;
+			switch (shape){
+				case 'Rect' :
+					this.shape = 'Rect';
+					this.left = x;
+					this.right = x + this.len;
+					this.top = this.pointY;
+					this.bottom = this.top + this.len;
+					break;
+				case 'Tri' :
+					this.shape = 'Tri';
+					this.left = x - this.len/2;
+					this.right = x + this.len/2;
+					this.top = this.pointY;
+					this.bottom = this.top + Math.floor(this.len*Math.sqrt(3)/2);
+					break;
+			}
+			datas[datas.indexOf(undefined) == -1 ? datas.length : datas.indexOf(undefined) ] = this;
+		}
+
+		CreatePic.prototype = {
+			'drawPic' : function(){
+				switch(this.shape){
+					case 'Rect' :
+						nbPic.nbFillRect({
+							x : this.pointX,
+							y : this.pointY,
+							w : this.len,
+							h : this.len,
+						});
+					case 'Tri' :
+						nbPic.nbFillTriangle({
+							x0 : this.pointX,
+							y0 : this.pointY,
+							x1 : this.right,
+							y1 : this.bottom,
+							x2 : this.left,
+							y2 : this.bottom,
+						});
+				}
+			} ,
+
+		}
+		var datas =[]; 
+		datas.socors = 0;
+		var skep ={
+			'top' : 1200,
+			'right' : 800,
+			'left' : 400,
+			'bottom' :1400,
+		};
+		datas.getFirstPic = function(){
+			var maxNum={} ;
+			maxNum.bottom = 0;
+			for(var i = 0,j = this.length;i<j;i++){
+				if(this[i] && (this[i].bottom > maxNum.bottom) ){
+					maxNum = this[i];
+				}
+			}
+			return maxNum;
+		}
+
+		datas.nextStep = function(){
+			for(var i = 0 ,j = this.length; i < j;i++){
+				if(this[i]){
+					this[i].pointY += this[i].speed;
+					this[i].top = this[i].pointY;
+					this[i].bottom = this[i].top + this[i].len;
+					this[i].drawPic();
+				}
+			}
+		}
+		datas.judge = function(){
+			var firstPic = this.getFirstPic();
+			if((firstPic.bottom + firstPic.speed) < skep.top){
+				this.nextStep();
+			}else{
+				if( (skep.left < firstPic.left) && (skep.right > firstPic.right) ){
+					// scoreSys();
+					this.socors++;
+					this[this.indexOf(firstPic)] = undefined;
+					// firstPic = this.getFirstPic();
+					this.nextStep();
+				}
+			}
+		}
+
+
+	</script>
+	<script>
+		var testF = function(){
+			if(testF.t == testF.c){
+				testF.extend();
+				testF.t = 0;
+			}
+  		nbPic.nbClearCanvas();
+			// corePaint();  	
+			nbPic.nbFillRect({x:400,y:1200,w:400,h:200});	
+			datas.judge();
+  		window.requestAnimationFrame(testF);
+  		testF.t++;
+  	}
+  	
+  	testF.t = 0;
+  	testF.c = 60;
+  	testF.extend =function(){
+  		new CreatePic(500,10,'Rect');
+  	}
+  	testF();
+	</script>
+</body>
+</html>
